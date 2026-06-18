@@ -8,5 +8,8 @@
 /test-results/
 /playwright-report/
 
+# Claude Code local settings (personal, not committed)
+/.claude/settings.local.json
+
 # OS / editor
 .DS_Store
