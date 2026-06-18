@@ -1,0 +1,10 @@
+<li class="tool-card" data-id="{{ .File.ContentBaseName }}">
+  <a href="{{ .RelPermalink }}">
+    <h2>{{ .Title }}</h2>
+    <span class="tool-category">{{ .CurrentSection.Title }}</span>
+    {{ with .Summary }}<p>{{ . | plainify | truncate 120 }}</p>{{ end }}
+    <ul class="tags">
+      {{ range .Params.tags }}<li>{{ . }}</li>{{ end }}
+    </ul>
+  </a>
+</li>

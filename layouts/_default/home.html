@@ -1,5 +1,12 @@
 {{ define "main" }}
 <section class="home">
   <h1>{{ site.Title }}</h1>
+  <input type="search" id="tool-search" placeholder="Search tools by name, id, or tag…" autocomplete="off">
+  <ul class="tool-grid" id="tool-grid">
+    {{ range (where site.RegularPages "Type" "tools").ByTitle }}
+      {{ partial "tool-card.html" . }}
+    {{ end }}
+  </ul>
+  <p class="no-results" id="no-results" hidden>No tools match your search.</p>
 </section>
 {{ end }}
