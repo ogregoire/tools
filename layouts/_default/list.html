@@ -4,9 +4,7 @@
   {{ with .Content }}{{ . }}{{ end }}
   <ul class="tool-grid">
     {{ range .Pages.ByTitle }}
-      {{ if .File }}
-        {{ partial "tool-card.html" . }}
-      {{ end }}
+      {{ partial "tool-card.html" . }}
     {{ end }}
   </ul>
 </section>
