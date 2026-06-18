@@ -10,3 +10,8 @@
   <p class="no-results" id="no-results" hidden>No tools match your search.</p>
 </section>
 {{ end }}
+
+{{ define "scripts" }}
+  {{ $js := resources.Get "js/search.js" | js.Build (dict "minify" hugo.IsProduction) | fingerprint }}
+  <script type="module" src="{{ $js.RelPermalink }}"></script>
+{{ end }}

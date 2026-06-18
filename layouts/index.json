@@ -1,0 +1,11 @@
+{{- $list := slice -}}
+{{- range where site.RegularPages "Type" "tools" -}}
+  {{- $list = $list | append (dict
+      "id" .File.ContentBaseName
+      "title" .Title
+      "category" .CurrentSection.Title
+      "url" .RelPermalink
+      "tags" .Params.tags
+      "summary" (.Summary | plainify)) -}}
+{{- end -}}
+{{- $list | jsonify -}}
