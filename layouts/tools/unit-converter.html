@@ -1,0 +1,28 @@
+{{ define "main" }}
+<article class="tool">
+  <h1>{{ .Title }}</h1>
+  {{ .Content }}
+
+  <div class="converter" id="converter">
+    <div class="converter-types" id="converter-types" role="tablist" aria-label="Measurement type"></div>
+
+    <div class="converter-row">
+      <label>From
+        <input type="number" id="from-value" value="1" step="any">
+        <select id="from-unit" aria-label="From unit"></select>
+      </label>
+      <button type="button" id="swap" aria-label="Swap units">⇄</button>
+      <label>To
+        <input type="number" id="to-value" step="any">
+        <select id="to-unit" aria-label="To unit"></select>
+      </label>
+    </div>
+  </div>
+</article>
+{{ end }}
+
+{{ define "scripts" }}
+  {{ $entry := .Resources.GetMatch "unit-converter.js" }}
+  {{ $js := $entry | js.Build (dict "minify" hugo.IsProduction) | fingerprint }}
+  <script type="module" src="{{ $js.RelPermalink }}"></script>
+{{ end }}

@@ -12,3 +12,13 @@ enableRobotsTXT = true
 
 [markup.goldmark.renderer]
   unsafe = true
+
+# Mount content page bundles into assets so js.Build can resolve relative imports
+# within a bundle (./units.js, ./convert.js) alongside assets-root imports (js/lib/*).
+[[module.mounts]]
+  source = "assets"
+  target = "assets"
+
+[[module.mounts]]
+  source = "content"
+  target = "assets"
