@@ -1,0 +1,14 @@
+baseURL = "https://ogregoire.be/tools/"
+languageCode = "en-us"
+title = "Tools"
+enableRobotsTXT = true
+
+# Only `tags` — overriding the defaults drops the `categories` taxonomy.
+[taxonomies]
+  tag = "tags"
+
+[outputs]
+  home = ["HTML", "JSON"]
+
+[markup.goldmark.renderer]
+  unsafe = true
