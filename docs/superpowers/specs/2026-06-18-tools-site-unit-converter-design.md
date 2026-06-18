@@ -89,10 +89,11 @@ tools/
 - A small library of reusable ES modules lives in `assets/js/lib/`. Both the
   site-wide search and every tool import from it, so common DOM and formatting
   logic is written once.
-- Modules consume it with assets-relative imports, e.g.
-  `import { create, on } from 'lib/dom.js'`. `js.Build` (esbuild) resolves these
-  against the `assets` directory and bundles them into each entry point's
-  fingerprinted output — no separate `<script>` and no global namespace.
+- Modules consume it with assets-root-relative imports, e.g.
+  `import { create, on } from 'js/lib/dom.js'` (esbuild resolves bare specifiers
+  from the `assets` directory, and the library lives at `assets/js/lib/`).
+  `js.Build` bundles them into each entry point's fingerprinted output — no
+  separate `<script>` and no global namespace.
 - Initial, intentionally minimal surface (grow only when real duplication
   appears):
   - `dom.js` — `qs`/`qsa` (querySelector helpers), `create(tag, props, children)`
