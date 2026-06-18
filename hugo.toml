@@ -13,12 +13,40 @@ enableRobotsTXT = true
 [markup.goldmark.renderer]
   unsafe = true
 
-# Mount content page bundles into assets so js.Build can resolve relative imports
-# within a bundle (./units.js, ./convert.js) alongside assets-root imports (js/lib/*).
+# Default component mounts, declared explicitly because adding any module
+# mount disables Hugo's implicit defaults. Plus a narrowed content→assets
+# mount exposing ONLY tool JS so js.Build can resolve a page bundle's
+# sibling imports (./units.js, ./convert.js) alongside assets-root imports
+# (js/lib/*). The narrowing keeps content .md files out of the assets vfs.
+[[module.mounts]]
+  source = "content"
+  target = "content"
+
+[[module.mounts]]
+  source = "content"
+  target = "assets"
+  includeFiles = "**/*.js"
+
 [[module.mounts]]
   source = "assets"
   target = "assets"
 
 [[module.mounts]]
-  source = "content"
-  target = "assets"
+  source = "layouts"
+  target = "layouts"
+
+[[module.mounts]]
+  source = "static"
+  target = "static"
+
+[[module.mounts]]
+  source = "data"
+  target = "data"
+
+[[module.mounts]]
+  source = "i18n"
+  target = "i18n"
+
+[[module.mounts]]
+  source = "archetypes"
+  target = "archetypes"
