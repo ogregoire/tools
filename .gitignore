@@ -3,5 +3,10 @@
 /resources/_gen/
 .hugo_build.lock
 
+# Node / Playwright (dev-only E2E tooling)
+/node_modules/
+/test-results/
+/playwright-report/
+
 # OS / editor
 .DS_Store
