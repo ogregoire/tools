@@ -7,9 +7,15 @@ const noResults = document.getElementById("no-results");
 let index = null;
 
 async function loadIndex() {
-  if (index) return index;
-  const res = await fetch(new URL("index.json", document.baseURI));
-  index = await res.json();
+  if (index !== null) return index;
+  try {
+    const res = await fetch(new URL("index.json", document.baseURI));
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    index = await res.json();
+  } catch (e) {
+    console.error("search: failed to load index", e);
+    index = [];
+  }
   return index;
 }
 
