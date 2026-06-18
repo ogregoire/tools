@@ -13,6 +13,11 @@ enableRobotsTXT = true
 [markup.goldmark.renderer]
   unsafe = true
 
+# Don't emit editor jsconfig.json files. The content→assets mount below would
+# otherwise drop one inside content/ as well as assets/.
+[build]
+  noJSConfigInAssets = true
+
 # Default component mounts, declared explicitly because adding any module
 # mount disables Hugo's implicit defaults. Plus a narrowed content→assets
 # mount exposing ONLY tool JS so js.Build can resolve a page bundle's
