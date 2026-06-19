@@ -120,9 +120,15 @@ Imports `qr.js` (relative) and `js/lib/dom.js`, `js/lib/color.js` (assets-root).
 - **Render:** on any change, recolor or (for text/ECC changes) rebuild then
   render the SVG into the page live. Empty input → neutral empty state. Capacity
   overflow (thrown by `buildMatrix`) → friendly inline message, no crash.
-- **Contrast warning:** call `meetsContrast(fg, bg)`; when `false`, show a
-  non-blocking warning ("Low contrast — this code may not scan reliably"). It
-  warns only; the code is still generated and downloadable.
+- **Warnings (non-blocking, warn only — the code is still generated and
+  downloadable):**
+  - *Low contrast:* call `meetsContrast(fg, bg)`; when `false`, show "Low
+    contrast — this code may not scan reliably."
+  - *Inverted colors:* when the foreground is lighter than the background
+    (`relativeLuminance(fg) > relativeLuminance(bg)`, using the lib's luminance),
+    show "Inverted colors (light on dark) — older scanners may have trouble
+    reading this code." This is independent of contrast (a perfectly
+    high-contrast inverted code still warns). Both warnings can show at once.
 - **Downloads:** "Download SVG" → a Blob (`image/svg+xml`) saved as
   `qr-code.svg`; "Download PNG" → draw the SVG onto a canvas sized at
   `PNG_MODULE_SIZE` pixels per module (imported from `qr.js`, not a literal),
@@ -154,13 +160,13 @@ picked up automatically as a `type: tools` page in the `images` section.
   bundle are emitted; `/tools/images/` lists the tool; `index.json` includes it.
 - **Live Firefox smoke (Playwright):** entering text renders an SVG with the
   expected module grid; changing ECC re-renders; changing fg/bg recolors the
-  SVG; a low-contrast pair shows the warning; the SVG and PNG download controls
-  produce downloads. Verified against the deployed site after release.
+  SVG; a low-contrast pair shows the low-contrast warning; an inverted pair
+  (light fg on dark bg) shows the inverted-colors warning; the SVG and PNG
+  download controls produce downloads. Verified against the deployed site after
+  release.
 
 ## Out of Scope (for now)
 
 - Size/scale and quiet-zone controls (fixed sensible defaults).
 - Non-opaque (alpha) colors.
 - Logo/image embedding, batch generation, other QR data modes (vCard, WiFi).
-- Inverted (light-on-dark) scannability warning — only the low-contrast warning
-  is in scope.
