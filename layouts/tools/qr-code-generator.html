@@ -1,0 +1,44 @@
+{{ define "main" }}
+<article class="tool">
+  <h1>{{ .Title }}</h1>
+  {{ .Content }}
+
+  <div class="qr">
+    <label class="qr-field">Text or URL
+      <input type="text" id="qr-text" value="https://ogregoire.be/tools/" autocomplete="off">
+    </label>
+
+    <label class="qr-field">Error correction
+      <select id="qr-ecc"></select>
+    </label>
+
+    <div class="qr-colors">
+      <fieldset>
+        <legend>Foreground</legend>
+        <input type="color" id="qr-fg" value="#000000" aria-label="Foreground color picker">
+        <input type="text" id="qr-fg-hex" value="#000000" maxlength="7" spellcheck="false" aria-label="Foreground hex">
+      </fieldset>
+      <fieldset>
+        <legend>Background</legend>
+        <input type="color" id="qr-bg" value="#ffffff" aria-label="Background color picker">
+        <input type="text" id="qr-bg-hex" value="#ffffff" maxlength="7" spellcheck="false" aria-label="Background hex">
+      </fieldset>
+    </div>
+
+    <p class="qr-warning" id="qr-warning" role="status" hidden></p>
+    <div class="qr-output" id="qr-output"></div>
+    <p class="qr-error" id="qr-error" role="alert" hidden></p>
+
+    <div class="qr-actions">
+      <button type="button" id="qr-dl-svg">{{ partial "icon-download.html" . }}<span>Download SVG</span></button>
+      <button type="button" id="qr-dl-png">{{ partial "icon-download.html" . }}<span>Download PNG</span></button>
+    </div>
+  </div>
+</article>
+{{ end }}
+
+{{ define "scripts" }}
+  {{ $entry := .Resources.GetMatch "qr-code-generator.js" }}
+  {{ $js := $entry | js.Build (dict "minify" hugo.IsProduction) | fingerprint }}
+  <script type="module" src="{{ $js.RelPermalink }}"></script>
+{{ end }}

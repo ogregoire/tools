@@ -40,3 +40,23 @@ a { color: var(--accent); }
   border: 1px solid var(--border); border-radius: 8px; }
 #swap { align-self: center; padding: 0.5rem 0.7rem; cursor: pointer;
   border: 1px solid var(--border); border-radius: 8px; background: #fff; }
+
+.qr { display: flex; flex-direction: column; gap: 1rem; max-width: 28rem; }
+.qr-field { display: flex; flex-direction: column; gap: 0.3rem; font-size: 0.9rem; }
+.qr-field input, .qr-field select { padding: 0.5rem; font-size: 1rem;
+  border: 1px solid var(--border); border-radius: 8px; }
+.qr-colors { display: flex; gap: 1rem; flex-wrap: wrap; }
+.qr-colors fieldset { border: 1px solid var(--border); border-radius: 8px; padding: 0.5rem 0.8rem; }
+.qr-colors legend { font-size: 0.8rem; color: var(--muted); }
+.qr-colors input[type="color"] { width: 2.5rem; height: 2rem; vertical-align: middle; }
+.qr-colors input[type="text"] { width: 6rem; margin-left: 0.4rem; padding: 0.3rem;
+  border: 1px solid var(--border); border-radius: 6px; font-family: monospace; }
+.qr-warning { color: #92400e; background: #fef3c7; border-radius: 8px; padding: 0.5rem 0.8rem; margin: 0; }
+.qr-error { color: #991b1b; background: #fee2e2; border-radius: 8px; padding: 0.5rem 0.8rem; margin: 0; }
+.qr-output svg { width: min(320px, 80vw); height: auto; display: block; }
+.qr-actions { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+.qr-actions button { display: inline-flex; align-items: center; gap: 0.4rem;
+  padding: 0.5rem 0.9rem; border: 1px solid var(--border); border-radius: 8px;
+  background: #fff; cursor: pointer; }
+.qr-actions button:disabled { opacity: 0.5; cursor: not-allowed; }
+.qr-actions .icon { display: block; }
