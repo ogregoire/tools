@@ -5,12 +5,13 @@
 
   <div class="qr">
     <label class="qr-field">Text or URL
-      <input type="text" id="qr-text" value="https://ogregoire.be/tools/" autocomplete="off">
+      <input type="text" id="qr-text" placeholder="Hello, World!" autocomplete="off">
     </label>
 
-    <label class="qr-field">Error correction
-      <select id="qr-ecc"></select>
-    </label>
+    <div class="qr-field">
+      <span>Error correction</span>
+      <div class="qr-ecc-toggle" id="qr-ecc" role="group" aria-label="Error correction level"></div>
+    </div>
 
     <div class="qr-colors">
       <fieldset>

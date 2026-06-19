@@ -45,6 +45,7 @@ a { color: var(--accent); }
 .qr-field { display: flex; flex-direction: column; gap: 0.3rem; font-size: 0.9rem; }
 .qr-field input, .qr-field select { padding: 0.5rem; font-size: 1rem;
   border: 1px solid var(--border); border-radius: 8px; }
+.qr-ecc-toggle { display: flex; flex-wrap: wrap; gap: 0.4rem; }
 .qr-colors { display: flex; gap: 1rem; flex-wrap: wrap; }
 .qr-colors fieldset { border: 1px solid var(--border); border-radius: 8px; padding: 0.5rem 0.8rem; }
 .qr-colors legend { font-size: 0.8rem; color: var(--muted); }

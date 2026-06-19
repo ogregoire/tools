@@ -1,5 +1,5 @@
 import { ECC_LEVELS, QUIET_ZONE, PNG_MODULE_SIZE, buildMatrix, toSvg } from "./qr.js";
-import { qs, create, on, clear } from "js/lib/dom.js";
+import { qs, qsa, create, on, clear } from "js/lib/dom.js";
 import { isHexColor, meetsContrast, relativeLuminance } from "js/lib/color.js";
 
 const textEl = qs("#qr-text");
@@ -14,10 +14,29 @@ const errorEl = qs("#qr-error");
 const dlSvgEl = qs("#qr-dl-svg");
 const dlPngEl = qs("#qr-dl-png");
 
-const state = { fg: "#000000", bg: "#ffffff", svg: "", matrix: null };
+const state = { fg: "#000000", bg: "#ffffff", ecc: "M", svg: "", matrix: null };
 
+// Error-correction toggle: segmented buttons, like the converter's type selector.
+function selectEcc(level) {
+  state.ecc = level;
+  for (const btn of qsa(".ecc-btn", eccEl)) {
+    const active = btn.dataset.ecc === level;
+    btn.classList.toggle("is-active", active);
+    btn.setAttribute("aria-pressed", String(active));
+  }
+  render();
+}
 for (const level of ECC_LEVELS) {
-  eccEl.append(create("option", { value: level, textContent: level, selected: level === "M" }));
+  const btn = create("button", {
+    type: "button",
+    class: "type-btn ecc-btn" + (level === state.ecc ? " is-active" : ""),
+    textContent: level,
+    dataset: { ecc: level },
+    "aria-pressed": String(level === state.ecc),
+    "aria-label": `Error correction level ${level}`,
+  });
+  on(btn, "click", () => selectEcc(level));
+  eccEl.append(btn);
 }
 
 function setActionsEnabled(enabled) {
@@ -49,7 +68,7 @@ function render() {
     return;
   }
   try {
-    state.matrix = buildMatrix(text, eccEl.value);
+    state.matrix = buildMatrix(text, state.ecc);
   } catch (e) {
     clear(outputEl);
     state.svg = "";
@@ -90,7 +109,6 @@ bindColor(fgEl, fgHexEl, "fg");
 bindColor(bgEl, bgHexEl, "bg");
 
 on(textEl, "input", render);
-on(eccEl, "change", render);
 
 function download(blob, filename) {
   const url = URL.createObjectURL(blob);
