@@ -8,6 +8,9 @@
   font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 }
 * { box-sizing: border-box; }
+/* The hidden attribute must win over component display rules (e.g. .qr-field
+   sets display:flex, which would otherwise override the UA [hidden] style). */
+[hidden] { display: none !important; }
 body { margin: 0; color: var(--fg); line-height: 1.5; }
 main { max-width: var(--max-width); margin: 0 auto; padding: 1.5rem; }
 .site-header, .site-footer {
