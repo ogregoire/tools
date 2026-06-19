@@ -1,0 +1,21 @@
+This directory vendors a prebuilt copy of libheif-js for in-browser HEIC
+decoding in the Image Converter tool.
+
+Components and licenses:
+
+- libheif — the underlying HEIF/HEIC decoding library (C), compiled to
+  JavaScript (ASM.js) via Emscripten.
+  Copyright (c) struktur AG and contributors.
+  Licensed under the GNU Lesser General Public License v3.0 (LGPL-3.0).
+  Source: https://github.com/strukturag/libheif
+  Full license text: see ./LICENSE (LGPL-3.0, which incorporates the
+  GNU GPL-3.0 by reference: https://www.gnu.org/licenses/gpl-3.0.txt).
+
+- libheif-js — the npm packaging/build wrapper. Version 1.19.8.
+  Licensed under LGPL-3.0 (per its npm metadata; it bundles libheif).
+  Source: https://github.com/catdad-experiments/libheif-js
+
+The file `libheif.js` is the unmodified vendored ASM.js build obtained via
+`npm pack libheif-js@1.19.8`, with a short ESM export shim appended at the
+end (clearly marked). It is served from this site's own origin; nothing is
+sent to a third party.
