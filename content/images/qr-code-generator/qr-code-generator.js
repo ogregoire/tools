@@ -120,6 +120,7 @@ on(dlPngEl, "click", () => {
     URL.revokeObjectURL(url);
     canvas.toBlob((blob) => { if (blob) download(blob, "qr-code.png"); }, "image/png");
   };
+  img.onerror = () => { URL.revokeObjectURL(url); };
   img.src = url;
 });
 
