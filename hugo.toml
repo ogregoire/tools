@@ -30,7 +30,7 @@ enableRobotsTXT = true
 [[module.mounts]]
   source = "content"
   target = "assets"
-  includeFiles = "**/*.js"
+  files = "**/*.js"
 
 [[module.mounts]]
   source = "assets"

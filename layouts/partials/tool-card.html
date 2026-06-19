@@ -1,4 +1,4 @@
-<li class="tool-card" data-id="{{ .File.ContentBaseName }}">
+<li class="tool-card" data-id="{{ with .File }}{{ .ContentBaseName }}{{ end }}">
   <a href="{{ .RelPermalink }}">
     <h2>{{ .Title }}</h2>
     <span class="tool-category">{{ .CurrentSection.Title }}</span>

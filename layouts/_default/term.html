@@ -1,0 +1,10 @@
+{{ define "main" }}
+<section class="listing">
+  <h1>Tools tagged “{{ .Title }}”</h1>
+  <ul class="tool-grid">
+    {{ range .Pages.ByTitle }}
+      {{ partial "tool-card.html" . }}
+    {{ end }}
+  </ul>
+</section>
+{{ end }}
