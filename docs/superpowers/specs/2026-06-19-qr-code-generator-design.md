@@ -39,8 +39,9 @@ content/images/
     └── qr-code-generator.js           # entry: DOM wiring, render, downloads
 assets/js/lib/
 └── color.js                           # WCAG color helpers (shared, commented)
-layouts/tools/
-└── qr-code-generator.html             # markup + js.Build script include
+layouts/
+├── tools/qr-code-generator.html        # markup + js.Build script include
+└── partials/icon-download.html         # reusable inline-SVG download icon
 tests/
 ├── qr.test.js                         # buildMatrix / toSvg
 └── color.test.js                      # color lib
@@ -129,16 +130,20 @@ Imports `qr.js` (relative) and `js/lib/dom.js`, `js/lib/color.js` (assets-root).
     show "Inverted colors (light on dark) — older scanners may have trouble
     reading this code." This is independent of contrast (a perfectly
     high-contrast inverted code still warns). Both warnings can show at once.
-- **Downloads:** "Download SVG" → a Blob (`image/svg+xml`) saved as
+- **Downloads:** two buttons, each showing a **download icon** (inline SVG)
+  next to its label. "Download SVG" → a Blob (`image/svg+xml`) saved as
   `qr-code.svg`; "Download PNG" → draw the SVG onto a canvas sized at
   `PNG_MODULE_SIZE` pixels per module (imported from `qr.js`, not a literal),
-  `canvas.toBlob` saved as `qr-code.png`. Both fully client-side.
+  `canvas.toBlob` saved as `qr-code.png`. Both fully client-side. The icon is a
+  reusable Hugo partial (`layouts/partials/icon-download.html`) holding an inline
+  SVG glyph — no external image asset — so other tools can reuse it.
 
 ## Layout
 
 `layouts/tools/qr-code-generator.html` — front-matter `layout: qr-code-generator`,
 `type: tools`. Markup for the input, ECC select, the two color controls, the
-contrast warning region, the SVG output container, and the two download buttons.
+contrast warning region, the SVG output container, and the two download buttons
+(each rendering the `icon-download.html` partial plus a text label).
 Script include uses the same
 `.Resources.GetMatch "qr-code-generator.js" | js.Build (dict "minify" hugo.IsProduction) | fingerprint`
 pattern as the converter. No card/layout changes are needed; the new tool is
