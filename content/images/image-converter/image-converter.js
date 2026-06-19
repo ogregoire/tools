@@ -140,8 +140,8 @@ async function convert() {
     if (seq !== convertSeq) return;
     showResult(canvas, blob);
   } catch (e) {
-    if (seq !== convertSeq) return;
     statusEl.hidden = true;
+    if (seq !== convertSeq) return;
     showError(`Could not convert this file: ${e.message}`);
   }
 }
