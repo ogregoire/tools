@@ -1,0 +1,39 @@
+{{ define "main" }}
+<article class="tool">
+  <h1>{{ .Title }}</h1>
+  {{ .Content }}
+
+  <div class="image-converter" id="image-converter" data-libheif-src="{{ "vendor/libheif/libheif.js" | relURL }}">
+    <div class="ic-drop" id="ic-drop" tabindex="0" role="button" aria-label="Choose or drop an image">
+      <input type="file" id="ic-file" hidden accept="image/png,image/jpeg,image/webp,image/svg+xml,image/heic,image/heif,.png,.jpg,.jpeg,.webp,.svg,.heic,.heif">
+      <p>Drop an image here, or click to choose</p>
+      <p class="ic-hint">PNG, JPG, WebP, SVG, HEIC → PNG, JPG, or WebP</p>
+    </div>
+
+    <div class="ic-controls">
+      <div class="qr-field">
+        <span>Output format</span>
+        <div class="ic-format" id="ic-format" role="group" aria-label="Output format"></div>
+      </div>
+      <div class="qr-field" id="ic-quality-row" hidden>
+        <label for="ic-quality">Quality: <span id="ic-quality-val">90</span></label>
+        <input type="range" id="ic-quality" min="1" max="100" value="90">
+      </div>
+    </div>
+
+    <p class="ic-status" id="ic-status" role="status" hidden></p>
+    <p class="ic-error" id="ic-error" role="alert" hidden></p>
+    <p class="ic-source" id="ic-source" hidden></p>
+    <div class="ic-preview" id="ic-preview"></div>
+    <div class="ic-actions">
+      <button type="button" id="ic-download" disabled>{{ partial "icon-download.html" . }}<span>Download</span></button>
+    </div>
+  </div>
+</article>
+{{ end }}
+
+{{ define "scripts" }}
+  {{ $entry := .Resources.GetMatch "image-converter.js" }}
+  {{ $js := $entry | js.Build (dict "minify" hugo.IsProduction) | fingerprint }}
+  <script type="module" src="{{ $js.RelPermalink }}"></script>
+{{ end }}

@@ -62,3 +62,22 @@ a { color: var(--accent); }
   background: #fff; cursor: pointer; }
 .qr-actions button:disabled { opacity: 0.5; cursor: not-allowed; }
 .qr-actions .icon { display: block; }
+
+.image-converter { display: flex; flex-direction: column; gap: 1rem; max-width: 32rem; }
+.ic-drop { border: 2px dashed var(--border); border-radius: 10px; padding: 1.5rem;
+  text-align: center; cursor: pointer; color: var(--muted); }
+.ic-drop.is-over { border-color: var(--accent); background: var(--bg-soft); }
+.ic-drop p { margin: 0; }
+.ic-hint { font-size: 0.8rem; margin-top: 0.3rem !important; }
+.ic-controls { display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: start; }
+.ic-format { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.ic-source { font-size: 0.85rem; color: var(--muted); margin: 0; }
+.ic-status { color: var(--muted); margin: 0; }
+.ic-error { color: #991b1b; background: #fee2e2; border-radius: 8px; padding: 0.5rem 0.8rem; margin: 0; }
+.ic-preview img { max-width: min(360px, 90vw); height: auto; display: block;
+  border: 1px solid var(--border); border-radius: 8px; }
+.ic-actions button { display: inline-flex; align-items: center; gap: 0.4rem;
+  padding: 0.5rem 0.9rem; border: 1px solid var(--border); border-radius: 8px;
+  background: #fff; cursor: pointer; }
+.ic-actions button:disabled { opacity: 0.5; cursor: not-allowed; }
+.ic-actions .icon { display: block; }
