@@ -62,13 +62,30 @@ tests/
 
 No DOM. Imports only `./qrcodegen.js`.
 
+**Named, commented constants — no magic numbers inline.** Every default value is
+a named constant with an explanatory comment, referenced by name everywhere
+(including as a parameter default), e.g.:
+
+```js
+/* Quiet zone: the blank margin (in modules) required around a QR code so
+   scanners can isolate it. The QR spec mandates at least 4 modules. */
+export const QUIET_ZONE = 4;
+
+/* PNG export resolution: pixels rendered per QR module when rasterizing the
+   SVG to a raster image. Larger = sharper/bigger file. */
+export const PNG_MODULE_SIZE = 8;
+```
+
+Functions take these as parameters defaulting to the constant — never a bare
+literal:
+
 - `buildMatrix(text, eccLabel)` → `{ size, modules }` where `modules` is a
   `size × size` array of booleans (true = dark). `eccLabel` is one of
   `"L" | "M" | "Q" | "H"`. Throws if `text` exceeds QR capacity at that level.
-- `toSvg(matrix, { fg, bg })` → a self-contained SVG string. Fixed **4-module
-  quiet zone**; `viewBox` in module units; `shape-rendering: crispEdges`; a
-  background `rect` (bg) plus one `rect` per dark module (fg). Colors are the
-  validated `#RRGGBB` strings passed in.
+- `toSvg(matrix, { fg, bg, quietZone = QUIET_ZONE })` → a self-contained SVG
+  string. `viewBox` in module units (size + 2 × `quietZone`);
+  `shape-rendering: crispEdges`; a background `rect` (bg) plus one `rect` per
+  dark module (fg). Colors are the validated `#RRGGBB` strings passed in.
 - `ECC_LEVELS` — exported ordered list `["L","M","Q","H"]` for the UI selector,
   with `"M"` as the default.
 
@@ -107,8 +124,9 @@ Imports `qr.js` (relative) and `js/lib/dom.js`, `js/lib/color.js` (assets-root).
   non-blocking warning ("Low contrast — this code may not scan reliably"). It
   warns only; the code is still generated and downloadable.
 - **Downloads:** "Download SVG" → a Blob (`image/svg+xml`) saved as
-  `qr-code.svg`; "Download PNG" → draw the SVG onto a canvas at a fixed module
-  scale, `canvas.toBlob` saved as `qr-code.png`. Both fully client-side.
+  `qr-code.svg`; "Download PNG" → draw the SVG onto a canvas sized at
+  `PNG_MODULE_SIZE` pixels per module (imported from `qr.js`, not a literal),
+  `canvas.toBlob` saved as `qr-code.png`. Both fully client-side.
 
 ## Layout
 
@@ -130,8 +148,8 @@ picked up automatically as a `type: tools` page in the `images` section.
 - **`tests/qr.test.js` (Node):** `buildMatrix` returns the expected `size` and
   stable module values for a known `(text, ecc)` (deterministic encoder);
   `buildMatrix` throws on text that exceeds capacity; `toSvg` returns a string
-  whose `viewBox` accounts for size + 8 quiet-zone modules and that contains the
-  provided fg/bg colors.
+  whose `viewBox` accounts for size + 2 × `QUIET_ZONE` modules and that contains
+  the provided fg/bg colors.
 - **Build:** `hugo --gc --minify` clean; the tool page and a fingerprinted JS
   bundle are emitted; `/tools/images/` lists the tool; `index.json` includes it.
 - **Live Firefox smoke (Playwright):** entering text renders an SVG with the
