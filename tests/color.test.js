@@ -33,3 +33,12 @@ test("meetsContrast true at/above, false below threshold", () => {
   assert.equal(meetsContrast("#000000", "#ffffff"), true);
   assert.equal(meetsContrast("#777777", "#888888"), false);
 });
+test("meetsContrast honors a custom threshold", () => {
+  // black/white contrast is exactly 21
+  assert.equal(meetsContrast("#000000", "#ffffff", 21), true);
+  assert.equal(meetsContrast("#000000", "#ffffff", 21.001), false);
+  // a named stricter threshold still passes at maximum contrast
+  assert.equal(meetsContrast("#000000", "#ffffff", WCAG_CONTRAST.AAA_NORMAL), true);
+  // a low-contrast pair fails an explicit threshold
+  assert.equal(meetsContrast("#777777", "#888888", WCAG_CONTRAST.AA_LARGE), false);
+});
