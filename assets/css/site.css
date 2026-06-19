@@ -38,6 +38,7 @@ a { color: var(--accent); }
 .converter-row label { display: flex; flex-direction: column; gap: 0.3rem; font-size: 0.9rem; }
 .converter-row input, .converter-row select { padding: 0.5rem; font-size: 1rem;
   border: 1px solid var(--border); border-radius: 8px; }
+.converter-row input[readonly] { background: var(--bg-soft); color: var(--muted); cursor: default; }
 #swap { align-self: center; padding: 0.5rem 0.7rem; cursor: pointer;
   border: 1px solid var(--border); border-radius: 8px; background: #fff; }
 

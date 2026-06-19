@@ -61,6 +61,7 @@ on(swapBtn, "click", () => {
   const u = fromUnit.value;
   fromUnit.value = toUnit.value;
   toUnit.value = u;
+  if (toValue.value !== "") fromValue.value = toValue.value;
   recalc();
 });
 
